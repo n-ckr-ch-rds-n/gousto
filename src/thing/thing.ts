@@ -1,5 +1,5 @@
 export class Thing {
-    speak(): string {
-        return "Bloob";
-    }
+	speak(): string {
+		return "Bloob";
+	}
 }
