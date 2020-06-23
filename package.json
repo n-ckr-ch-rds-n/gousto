@@ -1,0 +1,19 @@
+{
+  "name": "gousto",
+  "version": "1.0.0",
+  "description": "Tech test for Gousto",
+  "scripts": {
+    "test": "ts-mocha src/**/*.spec.ts",
+    "start": "npx ts-node src/index.ts"
+  },
+  "author": "Nick Richardson",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "4.2.11",
+    "@types/mocha": "7.0.2",
+    "chai": "4.2.0",
+    "mocha": "8.0.1",
+    "ts-mocha": "7.0.0",
+    "typescript": "3.9.5"
+  }
+}
