@@ -6,9 +6,9 @@ describe("Thing", () => {
 
     beforeEach(() => {
         thing = new Thing();
-    })
+    });
 
     it("Speaks", () => {
         expect(thing.speak()).to.equal("Bloob", "Thing didn't speak correctly");
-    })
-})
+    });
+});
