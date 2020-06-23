@@ -4,14 +4,18 @@
   "description": "Tech test for Gousto",
   "scripts": {
     "test": "ts-mocha src/**/*.spec.ts",
-    "start": "npx ts-node src/index.ts"
+    "start": "npx ts-node src/index.ts",
+    "lint": "eslint . --ext .ts"
   },
   "author": "Nick Richardson",
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "4.2.11",
     "@types/mocha": "7.0.2",
+    "@typescript-eslint/eslint-plugin": "^3.4.0",
+    "@typescript-eslint/parser": "^3.4.0",
     "chai": "4.2.0",
+    "eslint": "^7.3.1",
     "mocha": "8.0.1",
     "ts-mocha": "7.0.0",
     "typescript": "3.9.5"
