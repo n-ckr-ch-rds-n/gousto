@@ -2,6 +2,8 @@ import {BoxPicker} from "./box-picker";
 import {expect} from "chai";
 import {Dimensions} from "./dimensions";
 import {Box} from "./box";
+import boxes from "../data/boxes.json";
+import {BoxSize} from "./box-size";
 
 describe("Box picker", () => {
 	let boxPicker: BoxPicker;
@@ -9,94 +11,24 @@ describe("Box picker", () => {
 	let mockBoxes: Box[];
 
 	beforeEach("Instantiate box picker", () => {
-		mockBoxes = [
-			{
-				id: "PK-MED-01",
-				name: "Medium",
-				dimensions: {
-					widthMm: 30,
-					heightMm: 50,
-					depthMm: 60,
-				},
-				co2FootprintKg: 200,
-			},
-			{
-				id: "PK-SML-02",
-				name: "Small",
-				dimensions: {
-					widthMm: 20,
-					heightMm: 80,
-					depthMm: 50,
-				},
-				co2FootprintKg: 100,
-			},
-			{
-				id: "PK-LRG-03",
-				name: "Large",
-				dimensions: {
-					widthMm: 20,
-					heightMm: 100,
-					depthMm: 50,
-				},
-				co2FootprintKg: 300,
-			},
-		];
-		boxPicker = new BoxPicker();
+		boxPicker = new BoxPicker(boxes as Box[]);
 	});
 
 	it("Picks a box based on volume", () => {
-		const volume = 50;
-		const box = boxPicker.pickBox(volume);
-		expect(box.name).to.equal("Small", "Picked unexpected box");
-	});
-
-	it("Calculates volumes based on dimensions", () => {
-		mockDimensions = {
-			widthMm: 10,
-			heightMm: 10,
-			depthMm: 10,
+		const smallVolume = 50;
+		const mediumVolume = 90000;
+		const largeVolume = 100000;
+		const boxSizeByVolume: Record<number, BoxSize> = {
+			[smallVolume]: BoxSize.Small,
+			[mediumVolume]: BoxSize.Medium,
+			[largeVolume]: BoxSize.Large,
 		};
-		const volume = boxPicker.calculateVolume(mockDimensions);
-		expect(volume).to.equal(1000, "Unexpected volume value");
-	});
-
-	it("Sorts boxes", () => {
-		const expectedBoxes = [
-			{
-				id: "PK-SML-02",
-				name: "Small",
-				dimensions: {
-					widthMm: 20,
-					heightMm: 80,
-					depthMm: 50,
-				},
-				co2FootprintKg: 100,
-			},
-			{
-				id: "PK-MED-01",
-				name: "Medium",
-				dimensions: {
-					widthMm: 30,
-					heightMm: 50,
-					depthMm: 60,
-				},
-				co2FootprintKg: 200,
-			},
-			{
-				id: "PK-LRG-03",
-				name: "Large",
-				dimensions: {
-					widthMm: 20,
-					heightMm: 100,
-					depthMm: 50,
-				},
-				co2FootprintKg: 300,
-			},
-		];
-		const sortedBoxes = boxPicker.sortBoxes(mockBoxes);
-		expect(sortedBoxes).to.deep.equal(
-			expectedBoxes,
-			"Boxes sorted incorrectly"
-		);
+		for (const vol of Object.keys(boxSizeByVolume)) {
+			const box = boxPicker.pickBox(parseInt(vol));
+			expect(box.name).to.equal(
+				boxSizeByVolume[parseInt(vol)],
+				"Picked unexpected box"
+			);
+		}
 	});
 });

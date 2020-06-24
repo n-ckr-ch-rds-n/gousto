@@ -12,9 +12,9 @@ describe("Order service", () => {
 
 	beforeEach("Instantiate order service", () => {
 		mockBoxPicker = {
-			pickBox: () => mockBox,
-		};
-		orderService = new OrderService();
+			pickBox: (volume) => mockBox,
+		} as BoxPicker;
+		orderService = new OrderService(mockBoxPicker);
 	});
 
 	it("Calculates volumes of orders", () => {
