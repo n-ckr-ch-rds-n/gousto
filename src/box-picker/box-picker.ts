@@ -1,4 +1,5 @@
 import {Box} from "./box";
+import {Dimensions} from "./dimensions";
 
 export class BoxPicker {
 	private availableBoxes: Box[] = [
@@ -34,9 +35,27 @@ export class BoxPicker {
 		},
 	];
 
-	constructor() {}
+	sortedBoxes: Box[];
+
+	constructor() {
+		this.sortedBoxes = this.sortBoxes(this.availableBoxes);
+	}
 
 	pickBox(volume: number): Box {
-		return this.availableBoxes[0];
+		return this.sortedBoxes.find(
+			(box) => this.calculateVolume(box.dimensions) > volume
+		);
+	}
+
+	calculateVolume(dimensions: Dimensions): number {
+		return dimensions.depthMm * dimensions.heightMm * dimensions.widthMm;
+	}
+
+	sortBoxes(boxes: Box[]): Box[] {
+		return boxes.sort(
+			(a, b) =>
+				this.calculateVolume(a.dimensions) -
+				this.calculateVolume(b.dimensions)
+		);
 	}
 }

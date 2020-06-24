@@ -1,10 +1,8 @@
+import {Dimensions} from "./dimensions";
+
 export interface Box {
 	id: string;
 	name: string;
-	dimensions: {
-		widthMm: number;
-		heightMm: number;
-		depthMm: number;
-	};
+	dimensions: Dimensions;
 	co2FootprintKg: number;
 }
