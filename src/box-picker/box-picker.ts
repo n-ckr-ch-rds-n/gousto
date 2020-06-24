@@ -1,0 +1,42 @@
+import {Box} from "./box";
+
+export class BoxPicker {
+	private availableBoxes: Box[] = [
+		{
+			id: "PK-MED-01",
+			name: "Medium",
+			dimensions: {
+				widthMm: 30,
+				heightMm: 50,
+				depthMm: 60,
+			},
+			co2FootprintKg: 200,
+		},
+		{
+			id: "PK-SML-02",
+			name: "Small",
+			dimensions: {
+				widthMm: 20,
+				heightMm: 80,
+				depthMm: 50,
+			},
+			co2FootprintKg: 100,
+		},
+		{
+			id: "PK-LRG-03",
+			name: "Large",
+			dimensions: {
+				widthMm: 20,
+				heightMm: 100,
+				depthMm: 50,
+			},
+			co2FootprintKg: 300,
+		},
+	];
+
+	constructor() {}
+
+	pickBox(volume: number): Box {
+		return this.availableBoxes[0];
+	}
+}
